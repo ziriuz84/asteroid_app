@@ -1,6 +1,10 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
+import { Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home.tsx"
+import { Layout } from "./Layout.tsx";
+import { Configuration } from "./pages/Configuration.tsx"
 import "./App.css";
 
 function App() {
@@ -10,42 +14,26 @@ function App() {
   async function greet() {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     setGreetMsg(await invoke("greet", { name }));
+    const result = await invoke("get_weather_forecast");
+    console.log(result)
   }
 
   return (
     <div className="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-
-      <p>{greetMsg}</p>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="configuration" element={<Configuration />} >
+            <Route path="language" element={<div>language</div>} />
+            <Route path="observatory" element={<div>observatory</div>} />
+          </Route>
+          <Route path="scheduling" element={<div>Scheduling</div>} >
+            <Route path="weather_forecast" element={<div>Weather Forecast</div>} />
+            <Route path="whatsup" element={<div>Whatsup</div>} />
+            <Route path="neocp" element={<div>Neocp</div>} />
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

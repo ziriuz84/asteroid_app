@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .logo.vite:hover {
   filter: drop-shadow(0 0 2em #747bff);
 }
@@ -5,14 +9,15 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafb);
 }
+
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
-  color: #0f0f0f;
-  background-color: #f6f6f6;
+  color: red;
+  background-color: black;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,11 +28,63 @@
 
 .container {
   margin: 0;
-  padding-top: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+}
+
+header {
+  background-color: darkred;
+  font-size: 2em;
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+}
+
+header a {
+  color: black;
+  text-decoration: none;
+}
+
+header a:hover {
+  color: black;
+}
+
+nav {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  background-color: black;
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid red;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+nav ul li:hover {
+  border-color: darkred;
+  background-color: darkred;
+  transition: 0.75s;
+}
+
+nav ul li a {
+  color: red;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+nav ul li:hover a {
+  color: red;
 }
 
 .logo {
@@ -81,6 +138,7 @@ button {
 button:hover {
   border-color: #396cd8;
 }
+
 button:active {
   border-color: #396cd8;
   background-color: #e8e8e8;
@@ -110,6 +168,7 @@ button {
     color: #ffffff;
     background-color: #0f0f0f98;
   }
+
   button:active {
     background-color: #0f0f0f69;
   }
