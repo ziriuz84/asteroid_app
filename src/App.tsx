@@ -1,6 +1,5 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
+// import { useState } from "react";
+// import { invoke } from "@tauri-apps/api/tauri";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home.tsx"
 import { Layout } from "./Layout.tsx";
@@ -8,15 +7,15 @@ import { Configuration } from "./pages/Configuration.tsx"
 import "./App.css";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  // const [greetMsg, setGreetMsg] = useState("");
+  // const [name, setName] = useState("");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-    const result = await invoke("get_weather_forecast");
-    console.log(result)
-  }
+  // async function greet() {
+  //   // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+  //   setGreetMsg(await invoke("greet", { name }));
+  //   const result = await invoke("get_weather_forecast");
+  //   console.log(result)
+  // }
 
   return (
     <div className="container">
