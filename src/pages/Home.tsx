@@ -1,6 +1,6 @@
-import React from "react";
+// import React from "react";
 import { Link } from "react-router-dom";
-import { LinkButton } from "../components/LinkButton";
+// import { LinkButton } from "../components/LinkButton";
 
 export const Home = () => {
   return (
