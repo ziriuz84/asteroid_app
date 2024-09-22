@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home.tsx"
 import { Layout } from "./Layout.tsx";
 import { Configuration } from "./pages/Configuration.tsx"
+import { Language } from "./pages/Language.tsx"
 import "./App.css";
 
 function App() {
@@ -22,9 +23,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="configuration" element={<Configuration />} >
-            <Route path="language" element={<div>language</div>} />
             <Route path="observatory" element={<div>observatory</div>} />
+          <Route path="configuration" >
+            <Route index element={<Configuration />} />
+            <Route path="language" element={<Language />} />
           </Route>
           <Route path="scheduling" element={<div>Scheduling</div>} >
             <Route path="weather_forecast" element={<div>Weather Forecast</div>} />

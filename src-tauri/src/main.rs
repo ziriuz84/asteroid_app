@@ -12,6 +12,18 @@ fn get_weather_forecast() -> Result<String, String> {
     }
 }
 
+#[tauri::command]
+fn get_lang() -> String {
+    let settings = settings::Settings::new().unwrap();
+    settings.get_lang().to_string()
+}
+
+#[tauri::command]
+fn set_lang(lang: &str) {
+    let mut settings = settings::Settings::new().unwrap();
+    settings.set_lang(lang.to_string());
+}
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
