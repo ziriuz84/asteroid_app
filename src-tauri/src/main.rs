@@ -24,6 +24,13 @@ fn set_lang(lang: &str) {
     settings.set_lang(lang.to_string());
 }
 
+#[tauri::command]
+fn get_settings() -> settings::Settings {
+    let settings = settings::Settings::new().unwrap();
+    println!("{:?}", settings);
+    settings.get_all_settings()
+}
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -32,7 +39,13 @@ fn greet(name: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet, get_weather_forecast])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            get_weather_forecast,
+            get_lang,
+            set_lang,
+            get_settings
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

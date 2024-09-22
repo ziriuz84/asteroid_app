@@ -5,12 +5,12 @@ use std::fs;
 use std::io::prelude::*;
 use std::path::PathBuf;
 
-#[derive(serde_derive::Deserialize, serde_derive::Serialize, Debug)]
+#[derive(serde_derive::Deserialize, serde_derive::Serialize, Debug, Clone)]
 struct General {
     lang: String,
 }
 
-#[derive(serde_derive::Deserialize, serde_derive::Serialize, Debug)]
+#[derive(serde_derive::Deserialize, serde_derive::Serialize, Debug, Clone)]
 struct Observatory {
     place: String,
     latitude: f32,
@@ -19,12 +19,12 @@ struct Observatory {
     observatory_name: String,
     observer_name: String,
     mpc_code: String,
-    nord_altitude: i32,
+    north_altitude: i32,
     south_altitude: i32,
     east_altitude: i32,
     west_altitude: i32,
 }
-#[derive(serde_derive::Deserialize, serde_derive::Serialize, Debug)]
+#[derive(serde_derive::Deserialize, serde_derive::Serialize, Debug, Clone)]
 pub struct Settings {
     general: General,
     observatory: Observatory,
@@ -67,7 +67,7 @@ fn default_settings() -> Settings {
         observatory_name: "default".to_string(),
         observer_name: "default".to_string(),
         mpc_code: "500".to_string(),
-        nord_altitude: 1,
+        north_altitude: 1,
         east_altitude: 1,
         south_altitude: 1,
         west_altitude: 1,
@@ -142,8 +142,8 @@ pub fn modify_field_in_file(key: String, value: &str) -> Result<(), Box<dyn std:
             settings["observatory"]["observer_name"] = toml::Value::String(value.to_string())
         }
         "mpc_code" => settings["observatory"]["mpc_code"] = toml::Value::String(value.to_string()),
-        "nord_altitude" => {
-            settings["observatory"]["nord_altitude"] =
+        "north_altitude" => {
+            settings["observatory"]["north_altitude"] =
                 toml::Value::Integer(parse_integer64(value).unwrap())
         }
         "south_altitude" => {
@@ -212,20 +212,20 @@ impl Settings {
                 file.write_all(default.as_bytes())
                     .expect("Error in writing to config file");
             }
-        } else {
-            let mut file = fs::File::create(
-                dirs::config_local_dir()
-                    .unwrap()
-                    .join("asteroid_tui")
-                    .join("config.toml")
-                    .to_str()
-                    .unwrap(),
-            )
-            .unwrap();
-            let default_settings: Settings = default_settings();
-            let default = toml::to_string(&default_settings).unwrap();
-            file.write_all(default.as_bytes())
-                .expect("Error in writing to config file");
+            // } else {
+            //     let mut file = fs::File::create(
+            //         dirs::config_local_dir()
+            //             .unwrap()
+            //             .join("asteroid_tui")
+            //             .join("config.toml")
+            //             .to_str()
+            //             .unwrap(),
+            //     )
+            //     .unwrap();
+            //     let default_settings: Settings = default_settings();
+            //     let default = toml::to_string(&default_settings).unwrap();
+            //     file.write_all(default.as_bytes())
+            //         .expect("Error in writing to config file");
         }
         let s = Config::builder()
             .add_source(File::with_name(
@@ -245,7 +245,9 @@ impl Settings {
         &self.general.lang
     }
 
-    pub fn set_lang(&mut self, lang: String) {}
+    pub fn set_lang(&mut self, lang: String) {
+        modify_field_in_file("lang".to_string(), &lang).expect("Error in setting lang, value");
+    }
 
     /// Get place value from settings
     pub fn get_place(&self) -> &String {
@@ -282,9 +284,9 @@ impl Settings {
         &self.observatory.altitude
     }
 
-    /// Get nord altitude value from settings
-    pub fn get_nord_altitude(&self) -> &i32 {
-        &self.observatory.nord_altitude
+    /// Get north altitude value from settings
+    pub fn get_north_altitude(&self) -> &i32 {
+        &self.observatory.north_altitude
     }
 
     /// Get south altitude value from settings
@@ -300,6 +302,10 @@ impl Settings {
     /// Get west altitude value from settings
     pub fn get_west_altitude(&self) -> &i32 {
         &self.observatory.west_altitude
+    }
+
+    pub fn get_all_settings(&self) -> Settings {
+        self.clone()
     }
 }
 
@@ -324,7 +330,7 @@ mod test {
         assert!(s.get_latitude().is_finite());
         assert!(s.get_longitude().is_finite());
         assert!(s.get_altitude().is_finite());
-        assert!(s.get_nord_altitude().is_positive());
+        assert!(s.get_north_altitude().is_positive());
         assert!(s.get_south_altitude().is_positive());
         assert!(s.get_east_altitude().is_positive());
         assert!(s.get_west_altitude().is_positive());

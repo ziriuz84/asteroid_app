@@ -5,6 +5,7 @@ import { Home } from "./pages/Home.tsx"
 import { Layout } from "./Layout.tsx";
 import { Configuration } from "./pages/Configuration.tsx"
 import { Language } from "./pages/Language.tsx"
+import { Observatory } from "./pages/Observatory.tsx"
 import "./App.css";
 
 function App() {
@@ -23,10 +24,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-            <Route path="observatory" element={<div>observatory</div>} />
           <Route path="configuration" >
             <Route index element={<Configuration />} />
             <Route path="language" element={<Language />} />
+            <Route path="observatory" element={<Observatory />} />
           </Route>
           <Route path="scheduling" element={<div>Scheduling</div>} >
             <Route path="weather_forecast" element={<div>Weather Forecast</div>} />
