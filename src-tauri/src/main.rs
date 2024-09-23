@@ -27,7 +27,6 @@ fn set_lang(lang: &str) {
 #[tauri::command]
 fn get_settings() -> settings::Settings {
     let settings = settings::Settings::new().unwrap();
-    println!("{:?}", settings);
     settings.get_all_settings()
 }
 

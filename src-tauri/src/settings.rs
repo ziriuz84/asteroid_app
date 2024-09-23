@@ -120,8 +120,6 @@ pub fn modify_field_in_file(key: String, value: &str) -> Result<(), Box<dyn std:
         settings.insert(key.to_string(), toml::Value::String(value.to_string()));
     }
     */
-    println!("key: {}", key);
-    println!("value: {}", value);
 
     match key.as_str() {
         "lang" => settings["general"]["lang"] = toml::Value::String(value.to_string()),
