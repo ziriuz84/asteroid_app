@@ -30,6 +30,12 @@ fn get_settings() -> settings::Settings {
     settings.get_all_settings()
 }
 
+#[tauri::command]
+fn set_settings(settings: settings::Settings) {
+    let mut settings_object = settings::Settings::new().unwrap();
+    settings_object.set_settings(settings);
+}
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -43,7 +49,8 @@ fn main() {
             get_weather_forecast,
             get_lang,
             set_lang,
-            get_settings
+            get_settings,
+            set_settings
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

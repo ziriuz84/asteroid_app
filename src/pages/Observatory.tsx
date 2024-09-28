@@ -4,9 +4,9 @@ import { invoke } from '@tauri-apps/api/tauri';
 
 type Observatory = {
   place: string;
-  latitude: number;
-  longitude: number;
-  altitude: number;
+  latitude: string;
+  longitude: string;
+  altitude: string;
   observatory_name: string;
   observer_name: string;
   mpc_code: string;
@@ -38,8 +38,11 @@ export const Observatory = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Form submitted:', formState);
+    invoke('set_settings', {settings:{observatory: formState, general:{lang: 'en'} } });
     // Qui puoi aggiungere la logica per salvare i dati
   };
+
+  const numericParameters = ['altitude', 'latitude', 'longitude', 'north_altitude', 'east_altitude', 'south_altitude', 'west_altitude'];
 
   return (
     <div>

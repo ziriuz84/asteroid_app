@@ -1,6 +1,7 @@
 use config::{Config, ConfigError, File};
 use rand::Rng;
 // use serde_derive::Deserialize;
+use std::collections::HashMap;
 use std::fs;
 use std::io::prelude::*;
 use std::path::PathBuf;
@@ -33,15 +34,15 @@ pub struct Settings {
 /// Finds if config file exists or create it
 fn file_exists_or_create() -> Result<(), Box<dyn std::error::Error>> {
     let config_dir: PathBuf = dirs::config_local_dir().ok_or("Failed to get config local dir")?;
-    let asteroid_tui_path: PathBuf = config_dir.join("asteroid_tui");
+    let asteroid_app_path: PathBuf = config_dir.join("asteroid_app");
 
     // Ensure the directory exists
-    if asteroid_tui_path.exists() {
-        fs::create_dir_all(&asteroid_tui_path)?;
+    if asteroid_app_path.exists() {
+        fs::create_dir_all(&asteroid_app_path)?;
     }
 
     // Create or update the config file
-    let config_file_path = asteroid_tui_path.join("config.toml");
+    let config_file_path = asteroid_app_path.join("config.toml");
     if config_file_path.exists() {
         let default_settings: Settings = default_settings();
         let default: String = toml::to_string(&default_settings)?;
@@ -103,7 +104,7 @@ pub fn modify_field_in_file(key: String, value: &str) -> Result<(), Box<dyn std:
     let contents = fs::read_to_string(
         dirs::config_local_dir()
             .unwrap()
-            .join("asteroid_tui")
+            .join("asteroid_app")
             .join("config.toml")
             .to_str()
             .unwrap(),
@@ -166,7 +167,7 @@ pub fn modify_field_in_file(key: String, value: &str) -> Result<(), Box<dyn std:
     fs::write(
         dirs::config_local_dir()
             .unwrap()
-            .join("asteroid_tui")
+            .join("asteroid_app")
             .join("config.toml")
             .to_str()
             .unwrap(),
@@ -181,7 +182,7 @@ impl Settings {
         if fs::metadata(
             dirs::config_local_dir()
                 .unwrap()
-                .join("asteroid_tui")
+                .join("asteroid_app")
                 .to_str()
                 .unwrap(),
         )
@@ -190,7 +191,7 @@ impl Settings {
             if let Err(err) = fs::create_dir(
                 dirs::config_local_dir()
                     .unwrap()
-                    .join("asteroid_tui")
+                    .join("asteroid_app")
                     .to_str()
                     .unwrap(),
             ) {
@@ -199,7 +200,7 @@ impl Settings {
                 let mut file = fs::File::create(
                     dirs::config_local_dir()
                         .unwrap()
-                        .join("asteroid_tui")
+                        .join("asteroid_app")
                         .join("config.toml")
                         .to_str()
                         .unwrap(),
@@ -214,7 +215,7 @@ impl Settings {
             //     let mut file = fs::File::create(
             //         dirs::config_local_dir()
             //             .unwrap()
-            //             .join("asteroid_tui")
+            //             .join("asteroid_app")
             //             .join("config.toml")
             //             .to_str()
             //             .unwrap(),
@@ -229,7 +230,7 @@ impl Settings {
             .add_source(File::with_name(
                 dirs::config_local_dir()
                     .unwrap()
-                    .join("asteroid_tui")
+                    .join("asteroid_app")
                     .join("config.toml")
                     .to_str()
                     .unwrap(),
@@ -245,6 +246,30 @@ impl Settings {
 
     pub fn set_lang(&mut self, lang: String) {
         modify_field_in_file("lang".to_string(), &lang).expect("Error in setting lang, value");
+    }
+
+    pub fn set_settings(&mut self, settings: Settings) -> Result<(), serde_json::Error> {
+        let observatory_value: serde_json::Value = serde_json::to_value(&settings.observatory)?;
+
+        if let serde_json::Value::Object(map) = observatory_value {
+            for (key, value) in map {
+                let value_str = serde_json::to_string(&value)?;
+                let key_str = key.as_str();
+
+                // Modifichiamo il match per farlo sempre restituire una stringa
+                let processed_value = match key_str {
+                    "place" | "observatory_name" | "observer_name" | "mpc_code" => {
+                        value_str.to_string()
+                    }
+                    "latitude" | "longitude" | "altitude" => value_str.replace("\"", ""),
+                    _ => value_str.to_string(), // Restituiamo una stringa vuota per gli altri casi
+                };
+
+                println!("Chiave: {}, Valore: {}", key_str, processed_value);
+                modify_field_in_file(key_str.to_string(), &processed_value);
+            }
+        }
+        Ok(())
     }
 
     /// Get place value from settings
