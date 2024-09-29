@@ -261,9 +261,11 @@ impl Settings {
                     "place" | "observatory_name" | "observer_name" | "mpc_code" => {
                         value_str.to_string().replace("\"", "").replace("\"", "")
                     }
-                    "latitude" | "longitude" | "altitude" => {
-                        value_str.replace("\"", "").replace("\"", "")
-                    }
+                    "latitude" | "longitude" | "altitude" => value_str
+                        .replace("\"", "")
+                        .replace("\"", "")
+                        .parse()
+                        .unwrap(),
                     _ => {
                         value_str.to_string().replace("\"", "").replace("\"", "")
                         // Restituiamo una stringa vuota per gli altri casi
