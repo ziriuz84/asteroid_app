@@ -152,6 +152,56 @@ nav ul li div.active {
   background-color: darkred;
 }
 
+.weatherforecast {
+  margin: 0 auto;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.weatherforecast th,
+.weatherforecast td {
+  border: 1px solid darkred;
+  padding: 5px;
+}
+
+.weatherforecast tr td:first-child {
+  text-align: left;
+}
+
+.weatherforecast .label {
+  display: none;
+}
+
+@media (max-width: 800px) {
+
+  .weatherforecast tr:first-child,
+  .weatherforecast th {
+    display: none;
+  }
+
+  .weatherforecast tr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid darkred;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .weatherforecast td {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: none;
+    width: 100%;
+  }
+
+  .weatherforecast .label {
+    display: block;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
