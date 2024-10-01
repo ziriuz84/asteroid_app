@@ -8,12 +8,31 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+type ForecastResponse = {
+  product: string,
+  init: string,
+  dataseries: Forecast[]
+}
 
-type WeatherForecast = {
+type Forecast = {
+  timepoint: number,
+  cloudcover: number,
+  seeing: number,
+  transparency: number,
+  lifted_index: number,
+  rh2m: number,
+  wind10m: Wind,
+  temp2m: number,
+  prec_type: string
 }
 
 type Dictionary = {
   [key: number]: string
+}
+
+type Wind = {
+  direction: string,
+  speed: number
 }
 
 
@@ -102,7 +121,7 @@ export const WeatherForecast = () => {
   }
 
   const getWeatherForecast = async () => {
-    const data = await invoke("get_weather_forecast");
+    const data: ForecastResponse = await invoke("get_weather_forecast");
     console.log(data)
   }
 
