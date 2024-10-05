@@ -146,19 +146,27 @@ export const WeatherForecast = () => {
 
   const getWeatherForecast = async () => {
     try {
-      const data: ForecastResponse = await invoke("get_weather_forecast").then((responseonse: ForecastResponse) => {
+      await invoke("get_weather_forecast").then((data: unknown) => {
+        const response = JSON.parse(data as string) as ForecastResponse;
         const convertCloudCover = (value: number): string => cloudCoverDictionary[value] || "Unknown";
         const convertSeeing = (value: number): string => seeingDictionary[value] || "Unknown";
         const convertTransparency = (value: number): string => transparencyDictionary[value] || "Unknown";
         const convertLiftedIndex = (value: number): string => liftedIndexDictionary[value.toString()] || "Unknown";
         const convertRh2m = (value: number): string => rh2mDictionary[value.toString()] || "Unknown";
         const convertWind10m = (value: number): string => wind10mDictionary[value] || "Unknown";
+        const convertedTime = (value: number): string => {
+          const now = new Date()
+          const futureTime = new Date(now);
+          futureTime.setHours(now.getHours() + value);
+          return futureTime.toLocaleString()
+        }
 
         const convertedData: ConvertedForecastResponse = {
-          product: responseonse.product,
-          init: responseonse.init,
-          dataseries: responseonse.dataseries.map(forecast => ({
+          product: response.product,
+          init: response.init,
+          dataseries: response.dataseries.map((forecast: Forecast) => ({
             ...forecast,
+            timepoint: convertedTime(forecast.timepoint),
             cloudcover: convertCloudCover(forecast.cloudcover),
             seeing: convertSeeing(forecast.seeing),
             transparency: convertTransparency(forecast.transparency),
@@ -170,7 +178,7 @@ export const WeatherForecast = () => {
             }
           }))
         };
-        console.log(responseonse)
+        console.log(convertedData);
         setWeather(convertedData);
 
       });
@@ -197,6 +205,42 @@ export const WeatherForecast = () => {
 
   return (
     <div>
+      {isLoading ? (
+        <div>Loading weather forecast...</div>
+      ) : weather && weather.dataseries ? (
+        <table className="weatherforecast">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Cloud Cover</th>
+              <th>Seeing</th>
+              <th>Transparency</th>
+              <th>Lifted Index</th>
+              <th>RH2m</th>
+              <th>Wind</th>
+              <th>Temp2m</th>
+              <th>Prec Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            {weather.dataseries.map((forecast: ConvertedForecast, index) => (
+              <tr key={index}>
+                <td><span className="label">Time</span>{forecast.timepoint}</td>
+                <td><span className="label">Cloud Cover</span>{forecast.cloudcover}</td>
+                <td><span className="label">Seeing</span>{forecast.seeing}</td>
+                <td><span className="label">Transparency</span>{forecast.transparency}</td>
+                <td><span className="label">Lifted Index</span>{forecast.lifted_index}</td>
+                <td><span className="label">RH2m</span>{forecast.rh2m}</td>
+                <td><span className="label">Wind</span>{forecast.wind10m.speed} {forecast.wind10m.direction}</td>
+                <td><span className="label">Temp2m</span>{forecast.temp2m}</td>
+                <td><span className="label">Prec Type</span>{forecast.prec_type}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div>No weather data available</div>
+      )}
       <nav>
         <ul>
           <li>
@@ -208,42 +252,6 @@ export const WeatherForecast = () => {
         </ul>
       </nav>
 
-      {isLoading ? (
-        <div>Loading weather forecast...</div>
-      ) : weather && weather.dataseries ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Timepoint</th>
-              <th>Cloud Cover</th>
-              <th>Seeing</th>
-              <th>Transparency</th>
-              <th>Lifted Index</th>
-              <th>RH2m</th>
-              <th>Wind Speed</th>
-              <th>Temp2m</th>
-              <th>Prec Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {weather.dataseries.map((forecast: ConvertedForecast, index) => (
-              <tr key={index}>
-                <td>{forecast.timepoint}</td>
-                <td>{forecast.cloudcover}</td>
-                <td>{forecast.seeing}</td>
-                <td>{forecast.transparency}</td>
-                <td>{forecast.lifted_index}</td>
-                <td>{forecast.rh2m}</td>
-                <td>{forecast.wind10m.speed} {forecast.wind10m.direction}</td>
-                <td>{forecast.temp2m}</td>
-                <td>{forecast.prec_type}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div>No weather data available</div>
-      )}
     </div>
   )
 }
