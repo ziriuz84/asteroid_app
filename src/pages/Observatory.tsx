@@ -32,7 +32,8 @@ export const Observatory = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormState(prevState => ({ ...prevState, [name]: value }));
+    const numericFields = ['latitude', 'longitude', 'altitude', 'north_altitude', 'south_altitude', 'west_altitude', 'east_altitude'];
+    setFormState(prevState => ({ ...prevState, [name]: numericFields.includes(name) ? parseFloat(value) : value }));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

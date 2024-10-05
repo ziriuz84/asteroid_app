@@ -259,17 +259,15 @@ impl Settings {
                 // Modifichiamo il match per farlo sempre restituire una stringa
                 let processed_value = match key_str {
                     "place" | "observatory_name" | "observer_name" | "mpc_code" => {
-                        value_str.to_string().replace("\"", "").replace("\"", "")
+                        value.as_str().unwrap_or_default().to_string()
                     }
-                    "latitude" | "longitude" | "altitude" => value_str
-                        .replace("\"", "")
-                        .replace("\"", "")
-                        .parse()
-                        .unwrap(),
-                    _ => {
-                        value_str.to_string().replace("\"", "").replace("\"", "")
-                        // Restituiamo una stringa vuota per gli altri casi
+                    "latitude" | "longitude" | "altitude" => {
+                        value.as_f64().unwrap_or_default().to_string()
                     }
+                    "north_altitude" | "south_altitude" | "east_altitude" | "west_altitude" => {
+                        value.as_i64().unwrap_or_default().to_string()
+                    }
+                    _ => continue,
                 };
 
                 println!("Chiave: {}, Valore: {}", key_str, processed_value);
