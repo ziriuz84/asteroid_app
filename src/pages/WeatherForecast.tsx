@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 
 import {

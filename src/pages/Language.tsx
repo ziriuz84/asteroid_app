@@ -1,6 +1,6 @@
 import { BackMenu } from "../components/BackMenu";
 import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 /**
  * React component for language setting
