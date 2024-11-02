@@ -1,6 +1,6 @@
 import { BackMenu } from "../components/BackMenu";
 import React, { useState, useEffect } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 
 type Observatory = {
   place: string;
