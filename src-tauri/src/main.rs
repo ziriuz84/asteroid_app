@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod settings;
+mod sun_moon_times;
 mod weather;
 
 #[tauri::command]
@@ -36,6 +37,11 @@ fn set_settings(settings: settings::Settings) {
     settings_object.set_settings(settings);
 }
 
+#[tauri::command]
+fn get_sun_times() -> String {
+    sun_moon_times::get_sun_moon_times()
+}
+
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -51,7 +57,8 @@ fn main() {
             get_lang,
             set_lang,
             get_settings,
-            set_settings
+            set_settings,
+            get_sun_times
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

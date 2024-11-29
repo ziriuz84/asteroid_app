@@ -1,13 +1,14 @@
 // import { useState } from "react";
 // import { invoke } from "@tauri-apps/api/tauri";
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./pages/Home.tsx"
+import { Home } from "./pages/Home.tsx";
 import { Layout } from "./Layout.tsx";
-import { Configuration } from "./pages/Configuration.tsx"
-import { Language } from "./pages/Language.tsx"
-import { Observatory } from "./pages/Observatory.tsx"
+import { Configuration } from "./pages/Configuration.tsx";
+import { Language } from "./pages/Language.tsx";
+import { Observatory } from "./pages/Observatory.tsx";
 import { Scheduling } from "./pages/Scheduling.tsx";
 import { WeatherForecast } from "./pages/WeatherForecast.tsx";
+import { SunMoonTimes } from "./pages/SunMoonTimes.tsx";
 import "./App.css";
 
 function App() {
@@ -26,14 +27,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="configuration" >
+          <Route path="configuration">
             <Route index element={<Configuration />} />
             <Route path="language" element={<Language />} />
             <Route path="observatory" element={<Observatory />} />
           </Route>
-          <Route path="scheduling" >
+          <Route path="scheduling">
             <Route index element={<Scheduling />} />
             <Route path="weather_forecast" element={<WeatherForecast />} />
+            <Route path="sun_moon_times" element={<SunMoonTimes />} />
             <Route path="whatsup" element={<div>Whatsup</div>} />
             <Route path="neocp" element={<div>Neocp</div>} />
           </Route>

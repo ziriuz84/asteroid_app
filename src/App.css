@@ -172,8 +172,28 @@ nav ul li div.active {
   display: none;
 }
 
-@media (max-width: 800px) {
+.times {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 350px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
 
+.times .item {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.times .item .name {
+  font-weight: 700;
+}
+
+@media (max-width: 800px) {
   .weatherforecast tr:first-child,
   .weatherforecast th {
     display: none;
