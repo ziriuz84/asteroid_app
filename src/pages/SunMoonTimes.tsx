@@ -26,9 +26,9 @@ export const SunMoonTimes = () => {
   const [sunMoonTimes, setSunMoonTimes] = useState<SunMoonTimes | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const getSunMoonTimes = async (): Promise<void> => {
-    const result: void = await invoke("get_sun_times")
-      .then((result) => JSON.parse(result as string))
-      .then((result) => setSunMoonTimes(result.results));
+    await invoke("get_sun_times")
+      .then((response) => JSON.parse(response as string))
+      .then((response) => setSunMoonTimes(response.results));
   };
 
   useEffect(() => {
@@ -51,7 +51,6 @@ export const SunMoonTimes = () => {
         <div>Loading Sun Moon Times...</div>
       ) : sunMoonTimes ? (
         <div className="times">
-          {sunMoonTimes.results}
           <div className="item">
             <div className="name">Sunrise</div>
             <div className="value">{sunMoonTimes.sunrise}</div>
