@@ -9,10 +9,13 @@ export const Scheduling = () => {
             <Link to="/scheduling/weather_forecast">Weather Forecast</Link>
           </li>
           <li>
+            <Link to="/scheduling/sun_moon_times">Sun Moon Times</Link>
+          </li>
+          <li>
             <Link to="/">Home</Link>
           </li>
         </ul>
       </nav>
     </div>
-  )
-}
+  );
+};
