@@ -1,14 +1,13 @@
 import { BackMenu } from "../components/BackMenu";
-import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 
-type SunMoonTimesResponse = {
-  results: SunMoonTimes;
-  status: string;
-  tzid: string;
-};
-
+//type SunMoonTimesResponse = {
+//  results: SunMoonTimes;
+//  status: string;
+//  tzid: string;
+//};
+//
 type SunMoonTimes = {
   sunrise: string;
   sunset: string;
@@ -99,16 +98,7 @@ export const SunMoonTimes = () => {
       ) : (
         <div>Error in loading Times</div>
       )}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/scheduling">Back</Link>
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
-      </nav>
+      <BackMenu backto="/scheduling" />
     </div>
   );
 };
