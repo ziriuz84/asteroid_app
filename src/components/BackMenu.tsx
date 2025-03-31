@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 type Parameter = {
   backto: string;
-} 
+};
 
-export const BackMenu = ({ backto }:Parameter) => {
+export const BackMenu = ({ backto }: Parameter) => {
   return (
     <nav>
       <ul>
@@ -15,8 +15,6 @@ export const BackMenu = ({ backto }:Parameter) => {
           <Link to="/">Home</Link>
         </li>
       </ul>
-    </nav >
-
-  )
-
-}
+    </nav>
+  );
+};
