@@ -1,7 +1,53 @@
-# Tauri + React + Typescript
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+![asteroid_app](https://socialify.git.ci/ziriuz84/asteroid_app/image?description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Light)
+# asteroid_app
 
-## Recommended IDE Setup
+Asteroid_TUI is a set of tools for minor planets researchers and enthusiast useful for observation scheduling and planning
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+## Installation
+1. You need to have node, npm, rust environment and cargo packager
+2. Install packages and dipendencies
+```bash
+  npm install
+```
+3. Build executable
+```bash
+  npm tauri build
+```
+    
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://link-to-project
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run tauri dev
+```
+
+
+## Used By
+
+This project is used by the following companies:
+
+- Osservatorio "Il Coreggiolo" - MPC M16
+- Osservatorio "L. Zannoni" - MPC 126
+
