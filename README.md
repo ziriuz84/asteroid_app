@@ -22,7 +22,7 @@ Asteroid_TUI is a set of tools for minor planets researchers and enthusiast usef
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/ziriuz84/asteroid_app.git
 ```
 
 Go to the project directory
