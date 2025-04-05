@@ -2,13 +2,13 @@
 ![asteroid_app](https://socialify.git.ci/ziriuz84/asteroid_app/image?description=1&font=Inter&forks=1&issues=1&language=1&name=1&owner=1&pattern=Circuit+Board&pulls=1&stargazers=1&theme=Light)
 # asteroid_app
 
-Asteroid_TUI is a set of tools for minor planets researchers and enthusiast useful for observation scheduling and planning
+Asteroid_app is a set of tools for minor planet researchers and enthusiasts, useful for observation scheduling and planning
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
 ## Installation
-1. You need to have node, npm, rust environment and cargo packager
-2. Install packages and dipendencies
+1. You need to have Node, npm, Rust environment and cargo packager
+2. Install packages and dependencies
 ```bash
   npm install
 ```
