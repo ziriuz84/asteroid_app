@@ -6,13 +6,20 @@ Asteroid_app is a set of tools for minor planet researchers and enthusiasts, use
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
+## Requirements
+
+In order to build and develop the application, you need:
+
+1. [Node, npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed, minimum version 18
+2. [Rust environment and cargo packager](https://www.rust-lang.org/tools/install) installed
+
 ## Installation
-1. You need to have Node, npm, Rust environment and cargo packager
-2. Install packages and dependencies
+
+1. Install packages and dependencies
 ```bash
   npm install
 ```
-3. Build executable
+2. Build executable
 ```bash
   npm tauri build
 ```
@@ -22,13 +29,13 @@ Asteroid_app is a set of tools for minor planet researchers and enthusiasts, use
 Clone the project
 
 ```bash
-  git clone https://github.com/ziriuz84/asteroid_app.git
+  git clone git@github.com:ziriuz84/asteroid_app.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd asteroid_app
 ```
 
 Install dependencies
