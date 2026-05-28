@@ -70,7 +70,7 @@ checksum = "7d902e3d592a523def97af8f317b08ce16b7ab854c1985a0c671e6f15cebc236"
 
 [[package]]
 name = "asteroid_app"
-version = "1.0.2"
+version = "1.0.3"
 dependencies = [
  "chrono",
  "config",
