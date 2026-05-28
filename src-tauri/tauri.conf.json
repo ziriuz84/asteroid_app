@@ -18,7 +18,7 @@
   },
   "productName": "asteroid_app",
   "mainBinaryName": "asteroid_app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "identifier": "com.asteroidapp.app",
   "plugins": {},
   "app": {

@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/ziriuz84/asteroid_app/releases/tag/v1.0.2) (2026-05-29)
+
+### Code Refactoring
+
+- No commits left after filtering (merge/release/version bump only). Check tags or edit this entry manually.
+---
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
